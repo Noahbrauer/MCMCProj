@@ -2,11 +2,20 @@
 #include <map>
 using namespace std;
 
-
-//--Implemented--
-//The class BayesNet holds our boolean values to be changed based on a biased input.
-//Our bias is the probability given multiplied by 1000 to account for a random number 
-//generated from 1-1000.//Maps are based on conditional probabilities for markov blanket found by Adrian and Asare.//The map is made with the values after the given bar of the probability all concatenated //which is mapped to the probabilty for their result.//--Needs Work--//Find probabilties for new given functions. Current tables on program sheet are of normal//dependency, but we need tables based on markov blanket.//Possibly immplement function for MCMC sampling using the Markov Blanket //concept (also called block Gibbs sampling).
+/*
+	--Implemented--
+	The class BayesNet holds our boolean values to be changed based on a biased input.
+	Our bias is the probability given multiplied by 1000 to account for a random number 
+	generated from 1-1000.
+	Maps are based on conditional probabilities for markov blanket found by Adrian and Asare.
+	The map is made with the values after the given bar of the probability all concatenated 
+	which is mapped to the probabilty for their result.
+	--Needs Work--
+	Find probabilties for new given functions. Current tables on program sheet are of normal
+	dependency, but we need tables based on markov blanket.
+	Possibly immplement function for MCMC sampling using the Markov Blanket 
+	concept (also called block Gibbs sampling).
+*/
 class BayesNet {
 
 	map<int, int> AgiveDEB = { {111, },{110, },{101, },{100, },{011, },{010, },{001, },{000, } };
