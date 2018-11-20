@@ -31,7 +31,7 @@ For this project we were able to take a Bayesian Net with a few conditional prob
 Markov Blanket probability tables. From these we could then iterate 10000 instances, updating the values during each instance, 
 while keeping track of ratio of occasions where B is true after the instances. From this we can see that for each run the ratios
 converge on a similar decimal value. 
--One thing that I found is that there are two different ways to update your boolean values. You can do it sequentially or all at 
+-One thing that was found is that there are two different ways to update your boolean values. You can do it sequentially or all at 
 once. In the case of updating the values all at once its found that the ratios converged close to 0.563 but when updated 
 sequentially the ratios are slightly higher and converge closer to 0.585. I submitted the case of updating sequentially because 
 Dr. Goldsmith said it should be more accurate.
