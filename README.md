@@ -1,4 +1,6 @@
-
+ # MCMCProj
+ C++/Python Implementation of a MCMC that takes input of our Bayes net and approximates the Probability for P(B|D+T,G+T) given a bayesian net and probability tables for said net. 
+ 
 --How To--
 You can run this code with your method of choice. When running in shell you simply use make and then run the file with 
 the unix command ./MCMC. When run it should first output the five different binary values for the run. Then it will output 
