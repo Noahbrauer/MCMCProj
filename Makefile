@@ -8,8 +8,8 @@ all:$(PROGRAM)
 $(PROGRAM): $(OBJS)
 	g++ $(OBJS) -o $(PROGRAM)
 
-main.o:  BayeSource.cpp
-	g++ -c $(CFLAGS) BayesSource.cpp
+BayeSource.o:  BayeSource.cpp
+	g++ -c $(CFLAGS) BayeSource.cpp
 
 BayesNet.o: BayesNet.cpp Bayesnet.h
 	g++ -c $(CFLAGS) BayesNet.cpp
