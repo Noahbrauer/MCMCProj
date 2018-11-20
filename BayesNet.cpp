@@ -1,17 +1,20 @@
 #include "BayesNet.h"
 
 
-void BayesNet::initVars()
+void BayesNet::initVars(int run)
 {
-	srand(time(NULL));
-	A = rand() % 2;
-	B = rand() % 2;
-	C = rand() % 2;
+	mt19937 gen(rd());
+	bernoulli_distribution dist(0.5);
+
+	A = dist(gen);
+	B = dist(gen);
+	C = dist(gen);
 	D = 1;
-	E = rand() % 2;
-	F = rand()% 2;
+	E = dist(gen);
+	F = dist(gen);
 	G = 1;
-	cout << A << B << C << D << E << F << G << endl;
+	cout << "Initial values of ABCDEFG respectively run #";
+	cout << run <<  " :" << A << B << C << D << E << F << G << endl;
 }
 
 int BayesNet::mcmc()
@@ -19,58 +22,40 @@ int BayesNet::mcmc()
 
 	srand(time(NULL));
 
-	// Shift operations to create base 2 values from the boolean values.
-	int DBE = (D<<2) | (B<<1) | E;
-	int ACEF = (A<<3) | (C<<2) | (E<<1) | F;
-	int BF = (B<<1) | F;
-	int GABF = (G<<3) | (A<<2) | (B<<1) | F;
-	int GBCE = (G<<3) | (B<<2) | (C<<1) | E;
+	// Shift operations are conducted to create binary values from the 
+	// boolean variables given.
 	
 	// Generate new A value based on bias
-	float randNum = (rand() * rand()) % 100000 / 100000.0;
-	if (AgiveDBE[DBE] > randNum) {
-		A = false;
-	}
-	else {
-		A = true;
-	}
+	int DBE = (D<<2) | (B<<1) | E;
+	mt19937 generatorA(rd());
+	bernoulli_distribution distA(AgiveDBE[DBE]);
+	A = distA(generatorA);
 
+	int ACEF = (A<<3) | (C<<2) | (E<<1) | F;
 	// Generate new B value based on bias
-	randNum = (rand() * rand()) % 100000 / 100000.0;
-	if (BgiveACEF[ACEF] > randNum) {
-		B = false;
-	}
-	else {
-		B = true;
-	}
+	mt19937 generatorB(rd());
+	bernoulli_distribution distB(BgiveACEF[ACEF]);
+	B = distB(generatorB);
 
+	int BF = (B<<1) | F;
 	// Generate new C value based on bias
-	randNum = (rand() * rand()) % 100000 / 100000.0;
-	if (CgiveBF[BF] > randNum) {
-		C = false;
-	}
-	else {
-		C = true;
-	}
+	mt19937 generatorC(rd());
+	bernoulli_distribution distC(CgiveBF[BF]);
+	C = distC(generatorC);
 
+	int GABF = (G<<3) | (A<<2) | (B<<1) | F;
 	// Generate new E value based on bias
-	randNum = (rand() * rand()) % 100000 / 100000.0;
-	if (EgiveGABF[GABF] > randNum) {
-		E = false;
-	}
-	else {
-		E = true;
-	}
+	mt19937 generatorE(rd());
+	bernoulli_distribution distE(EgiveGABF[GABF]);
+	E = distE(generatorE);
 
+	int GBCE = (G<<3) | (B<<2) | (C<<1) | E;
 	// Generate new F value based on bias
-	randNum = (rand() * rand()) % 100000 / 100000.0;
-	if (FgiveGBCE[GBCE] > randNum) {
-		F = false;
-	}
-	else {
-		F = true;
-	}
+	mt19937 generatorF(rd());
+	bernoulli_distribution distF(FgiveGBCE[GBCE]);
+	F = distF(generatorF);
 
+	// Return case
 	if (B == true) {
 		return 1;
 	}
